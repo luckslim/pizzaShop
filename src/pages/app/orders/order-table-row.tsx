@@ -1,7 +1,13 @@
 import { Button } from "@/components/components/ui/button";
-import { DialogHeader } from "@/components/components/ui/dialog";
 import { TableCell, TableRow } from "@/components/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
+import { 
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/components/ui/dialog";
 import { ArrowRight, Search, X } from "lucide-react";
 
 export function OrderTableRow() {
@@ -12,17 +18,15 @@ export function OrderTableRow() {
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button variant="outline" size="xs">
-                                <Search className="h-3 w-3">
-                                    <span className="sr-only">Detalhes do pedido</span>
-                                </Search>
+                                <Search className="h-3 w-3" />
+                                <span className="sr-only">Detalhes do pedido</span>
                             </Button>
                         </DialogTrigger>
-                        <DialogContent>
+                        <DialogContent >
                             <DialogHeader>
-                                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                <DialogTitle>Detalhes do Pedido</DialogTitle>
                                 <DialogDescription>
-                                    This action cannot be undone. This will permanently delete your account
-                                    and remove your data from our servers.
+                                    Aqui vão os detalhes do pedido selecionado.
                                 </DialogDescription>
                             </DialogHeader>
                         </DialogContent>
