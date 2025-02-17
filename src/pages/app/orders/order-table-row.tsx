@@ -2,13 +2,10 @@ import { Button } from "@/components/components/ui/button";
 import { TableCell, TableRow } from "@/components/components/ui/table";
 import { 
     Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
     DialogTrigger
 } from "@/components/components/ui/dialog";
 import { ArrowRight, Search, X } from "lucide-react";
+import { OrderDetails } from "./order-details";
 
 export function OrderTableRow() {
     return (
@@ -22,14 +19,8 @@ export function OrderTableRow() {
                                 <span className="sr-only">Detalhes do pedido</span>
                             </Button>
                         </DialogTrigger>
-                        <DialogContent >
-                            <DialogHeader>
-                                <DialogTitle>Detalhes do Pedido</DialogTitle>
-                                <DialogDescription>
-                                    Aqui vão os detalhes do pedido selecionado.
-                                </DialogDescription>
-                            </DialogHeader>
-                        </DialogContent>
+                        <OrderDetails/>
+
                     </Dialog>
                 </TableCell>
                 <TableCell className="font-mono text-xs font-medium">8as9fy8f09yfsddsf</TableCell>
