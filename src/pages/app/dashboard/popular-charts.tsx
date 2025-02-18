@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/components/ui/card";
+import { BarChart } from "lucide-react";
 import {
     ResponsiveContainer,
     LineChart,
@@ -19,18 +20,16 @@ const data = [
     { date:'16/12', revenue:900 },
     { date:'17/12', revenue:1200 },
 ]
-export function RevenueChart(){
+export function PopularProductsChart(){
     return(
         <>
             <Card className="col-span-6">
                 <CardHeader className="flex-row items-center justify-between pb-8">
-                    <div className="space-y-1">
+                    <div className="flex items-center justify-between">
                         <CardTitle className="text-base font-medium">
-                            Receita no Periodo
+                            Produtos Populares
                         </CardTitle>
-                        <CardDescription>
-                            Receita Diária no período
-                        </CardDescription>
+                        <BarChart className="h-4 w-4 text-muted-foreground"/>
                     </div>
                 </CardHeader>
                 <CardContent>
