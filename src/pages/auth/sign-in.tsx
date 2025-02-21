@@ -4,7 +4,7 @@ import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from 'zod'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/api/sign-in";
 
@@ -14,7 +14,12 @@ const signInForm = z.object({
 })
 type SignInForm = z.infer<typeof signInForm>
 export function SignIn() {
-    const { register, handleSubmit, formState:{isSubmitting} } = useForm<SignInForm>()
+    const [searchParams]= useSearchParams()
+    const { register, handleSubmit, formState:{isSubmitting} } = useForm<SignInForm>({
+        defaultValues: {
+            email: searchParams.get('email') ?? '',
+        }
+    })
 
     const { mutateAsync: authenticate } = useMutation({
         mutationFn: signIn,
