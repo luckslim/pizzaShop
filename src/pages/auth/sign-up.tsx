@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from 'zod'
-
-
 const signUpForm = z.object({
     email: z.string().email(),
     restaurantName: z.string(),
