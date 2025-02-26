@@ -6,8 +6,19 @@ import {
 } from "@/components/components/ui/dialog";
 import { ArrowRight, Search, X } from "lucide-react";
 import { OrderDetails } from "./order-details";
+import { OrderStatus } from "@/components/order-status";
 
-export function OrderTableRow() {
+export interface OrderTableRowProps{
+    orders: {
+        orderId: string;
+        createdAt: Date;
+        status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+        customerName: string;
+        total: number;
+    };
+}
+
+export function OrderTableRow({orders}:OrderTableRowProps) {
     return (
         <>
             <TableRow>
@@ -23,16 +34,16 @@ export function OrderTableRow() {
 
                     </Dialog>
                 </TableCell>
-                <TableCell className="font-mono text-xs font-medium">8as9fy8f09yfsddsf</TableCell>
+                <TableCell className="font-mono text-xs font-medium">{orders.orderId}</TableCell>
                 <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
                 <TableCell>
-                    <div className="flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-slate-400"></span>
-                        <span className="font-medium text-muted-foreground">Pendente</span>
-                    </div>
+                    <OrderStatus status={orders.status}/>
                 </TableCell>
-                <TableCell className="font-medium">lucas soares</TableCell>
-                <TableCell className="font-medium">R$ 149,98</TableCell>
+                <TableCell className="font-medium">{orders.customerName}</TableCell>
+                <TableCell className="font-medium">{orders.total.toLocaleString('pt-BR', {
+                    style:'currency',
+                    currency:'BRL'
+                })}</TableCell>
                 <TableCell>
                     <Button variant="ghost" size="xs">
                         <ArrowRight className="mr-2 h-3 w-3" />
