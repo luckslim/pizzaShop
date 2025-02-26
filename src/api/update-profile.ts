@@ -5,5 +5,6 @@ interface UpdateProfileBody {
     description:string|null
 }
 export async function updateProfile({ name, description} : UpdateProfileBody){
-    await api.put('./profile',{name,description})
+     //throw Error()
+     await api.put('./profile',{name,description})
 }

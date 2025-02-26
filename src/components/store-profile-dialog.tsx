@@ -1,10 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "./components/ui/button";
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./components/ui/dialog";
 import { Input } from "./components/ui/input";
 import { Label } from "./components/ui/label";
 import { Textarea } from "./components/ui/textarea";
-import { getManagedRestaurant } from "@/api/get-managed-restaurant";
+import { getManagedRestaurant, GetManagedRestaurantResponse } from "@/api/get-managed-restaurant";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,10 +14,11 @@ import { DialogClose } from "@radix-ui/react-dialog";
 
 const storeProfileSchema = z.object({
     name: z.string().min(1),
-    description: z.string(),
+    description: z.string().nullable(),
 })
 type StoreProfileSchema = z.infer<typeof storeProfileSchema>
 export function StoreProfileDialog() {
+    const queryClient = useQueryClient()
     const { data: managedRestaurant} = useQuery({
         queryKey: ['manager-restaurant'],
         queryFn: getManagedRestaurant,
@@ -35,8 +36,28 @@ export function StoreProfileDialog() {
         }
 
     })
+    function updateManagedRestaurantCache({name, description}: StoreProfileSchema){
+        const cached = queryClient.getQueryData<GetManagedRestaurantResponse>(['manager-restaurant'])
+        if(cached){
+            queryClient.setQueryData<GetManagedRestaurantResponse>(['manager-restaurant'],{
+                ...cached,
+                name,
+                description,
+            })
+        }
+        return { cached } 
+    }
     const {mutateAsync : updateProfileFn} = useMutation({
         mutationFn: updateProfile,
+        onMutate({ name, description }){
+            const {cached } = updateManagedRestaurantCache({name, description})
+            return {previousProfile:cached}
+        },
+        onError(_,__,context){
+            if(context?.previousProfile){
+                updateManagedRestaurantCache(context.previousProfile)
+            }
+        }
     })
     async function handleUpdateProfile(data: StoreProfileSchema){
         try{
