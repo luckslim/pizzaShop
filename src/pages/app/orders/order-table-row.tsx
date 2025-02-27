@@ -13,7 +13,7 @@ import {ptBR} from 'date-fns/locale'
 export interface OrderTableRowProps{
     orders: {
         orderId: string;
-        createdAt: Date;
+        createdAt: string;
         status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
         customerName: string;
         total: number;
