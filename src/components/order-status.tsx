@@ -18,17 +18,20 @@ const OrderStatusMap: Record<OrderStatus, string> = {
 export function OrderStatus({ status }: OrderStatusProps) {
     return (
         <div className="flex items-center gap-2">
-            {status === 'pending' && (
+            {status == 'pending' && (
                 <span className="h-2 w-2 rounded-full bg-slate-400"></span>
             )}
-            {status === 'canceled' && (
+            {status == 'canceled' && (
                 <span className="h-2 w-2 rounded-full bg-rose-500"></span>
             )}
-            {status === 'delivered' && (
+            {status == 'delivered' && (
                 <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
             )}
-            {status === 'processing' && (
+            {status == 'delivering' && (
                 <span className="h-2 w-2 rounded-full bg-blue-500"></span>
+            )}
+            {status == 'processing' && (
+                <span className="h-2 w-2 rounded-full bg-yellow-500"></span>
             )}
             <span className="font-medium text-muted-foreground">{OrderStatusMap[status]}</span>
         </div>

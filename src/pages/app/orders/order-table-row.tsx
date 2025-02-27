@@ -7,6 +7,8 @@ import {
 import { ArrowRight, Search, X } from "lucide-react";
 import { OrderDetails } from "./order-details";
 import { OrderStatus } from "@/components/order-status";
+import { formatDistanceToNow } from 'date-fns'
+import {ptBR} from 'date-fns/locale'
 
 export interface OrderTableRowProps{
     orders: {
@@ -35,7 +37,12 @@ export function OrderTableRow({orders}:OrderTableRowProps) {
                     </Dialog>
                 </TableCell>
                 <TableCell className="font-mono text-xs font-medium">{orders.orderId}</TableCell>
-                <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
+                <TableCell className="text-muted-foreground">
+                    {formatDistanceToNow(orders.createdAt,{
+                        locale: ptBR,
+                        addSuffix: true,
+                    })}
+                </TableCell>
                 <TableCell>
                     <OrderStatus status={orders.status}/>
                 </TableCell>
